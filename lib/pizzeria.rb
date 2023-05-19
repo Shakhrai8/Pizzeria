@@ -1,14 +1,16 @@
 class Pizzeria
   def initialize
-    # Initialize the pizzeria with menu, order, and customer objects
+    @menu = Menu.new
+    @order = Order.new
+    @customer = nil
+    #configure_twilio
   end
 
   def display_menu
-    # Display the menu with dishes and prices
-    # Returns nothing
+    @menu.display_menu
   end
 
-  def place_order(*selection)
+  def place_order(customer, *selection)
     # Place an order by adding selected dishes to the order object
     # Returns nothing
   end
