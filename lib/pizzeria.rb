@@ -1,5 +1,8 @@
 class Pizzeria
-  def initialize
+  attr_reader :place_name, :menu, :order, :customer
+
+  def initialize(place_name = "Makers Pizza")
+    @place_name = place_name
     @menu = Menu.new
     @order = Order.new
     @customer = nil
@@ -16,8 +19,7 @@ class Pizzeria
   end
 
   def print_receipt
-    # Print an itemized receipt for the order
-    # Returns nothing
+    @order.print_receipt(@menu)
   end
 
   def send_confirmation_sms
