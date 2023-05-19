@@ -8,8 +8,8 @@ class Customer
   end
 
   def view_menu(pizzeria)
-    # View the menu of the given pizzeria
-    # Returns nothing
+    puts "Menu:"
+    pizzeria.display_menu
   end
 
   def place_order(pizzeria, *selection)
@@ -18,7 +18,7 @@ class Customer
   end
 
   def view_receipt(pizzeria)
-    # View the receipt of the order placed at the given pizzeria
-    # Returns nothing
+    puts "Receipt for the order placed at #{pizzeria.place_name}:"
+    pizzeria.order.print_receipt(pizzeria.menu)
   end
 end
