@@ -1,15 +1,24 @@
 class Order
   def initialize
-    # Initialize the order with an empty hash of items
+    @items = {}
   end
 
   def add_item(dish)
-    # Add a dish to the order
-    # Returns nothing
+    # This line initializes the quantity of the dish in the @items hash to 0 if it doesn't exist yet. 
+    @items[dish] ||=0
+    # This line increments the quantity of the dish in the @items hash by 1.
+    @items[dish] += 1
+    # Each dish serves as the key in the hash, and the corresponding value represents the quantity. This allows us to easily add multiple quantities of the same dish to the order.
   end
 
   def print_receipt(menu)
-    # Print an itemized receipt for the order using the menu object
-    # Returns nothing
+    puts "Receipt:"
+    total = 0
+    @items.each do |dish, quantity|
+      price = menu.price_of(dish) * quantity
+      puts "#{dish} x #{quantity}: £#{price}"
+      total += price
+    end
+    puts "Total: £#{total}"
   end
 end
