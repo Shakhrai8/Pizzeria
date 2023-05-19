@@ -1,20 +1,26 @@
 class Menu
   def initialize
-    # Initialize the menu with a hash of dishes and prices
+    @dishes = {
+      "Hunor's special" => 12.99,
+      "Margherita" => 9.99,
+      "Vegeterian" => 9.99,
+      "Hawaiian" => 10.99
+    }
   end
 
   def display_menu
-    # Display the menu with dishes and prices
-    # Returns nothing
+    puts "Menu: "
+    @dishes.each do |dish, price|
+      puts "#{dish}: £#{price}"
+    end
   end
 
   def price_of(dish)
-    # Get the price of a specific dish
-    # Returns the price as a float or nil if the dish is not available
+    @dishes[dish]
   end
 
   def available?(dish)
-    # Check if a specific dish is available
-    # Returns true if available, false otherwise
+    #.key? method is used to check if a given key exists in a hash
+    @dishes.key?(dish)
   end
 end
