@@ -22,6 +22,7 @@ Before running the pizza ordering system, you need to set up the required Twilio
   `export TWILIO_AUTH_TOKEN=your_auth_token`
   
   Replace your_account_sid and your_auth_token with your actual Twilio credentials.
+  
   4. Save the environment variables in your local shell configuration file (e.g., .bashrc, .zshrc) for persistent configuration.
 
 ## Usage
