@@ -19,7 +19,9 @@ class Customer
   # as u want and it will add up into array.
   def place_order(pizzeria, *selection)
     puts "Placing an order for #{name} at #{pizzeria.place_name}:"
-    pizzeria.process_order(self, *selection)
+    selection.each do |dish|
+      pizzeria.order.add_item(dish)
+    end
   end
 
   def view_receipt(pizzeria)
@@ -27,7 +29,7 @@ class Customer
     pizzeria.order.print_receipt(pizzeria.menu)
   end
 
-  private
+
 
   def send_order_confirmation(pizzeria)
     delivery_time = Time.now + (60 * 60) # One hour from now
@@ -48,3 +50,4 @@ class Customer
     puts "SMS confirmation sent to #{phone_number}."
   end
 end
+
