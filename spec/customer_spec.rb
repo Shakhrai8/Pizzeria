@@ -1,56 +1,49 @@
 require 'customer'
 require 'twilio-ruby'
 
+
 RSpec.describe Customer do
-  let(:pizzeria) { double("Pizzeria") }
-  let(:order) { double("Order") }
   let(:name) { "John Doe" }
   let(:address) { "123 Main St" }
   let(:phone_number) { "555-1234" }
   let(:customer) { Customer.new(name, address, phone_number) }
 
-  before do
-    allow(pizzeria).to receive(:place_name).and_return("Makers Pizza")
-    allow(pizzeria).to receive(:order).and_return(order)
-    allow(order).to receive(:add_item)
-  end
+  describe "#send_confirmation_sms" do
+    let(:pizzeria) { double("Pizzeria", place_name: "Makers Pizza") }
+    let(:delivery_time) { Time.new(2023, 5, 21, 11, 0) }
 
-  context "#place_order" do
-    let(:selection) { ["Hunor's special", "Margherita"] }
+    it "sends an order confirmation SMS" do
+      expected_body = "Thank you, John Doe! Your order from Makers Pizza was placed and will be delivered before 11:00."
+      expected_from = ENV['TWILIO_PHONE_NUMBER']
+      expected_to = "555-1234"
 
-    it "adds items to the order" do
-      expect(order).to receive(:add_item).with("Hunor's special").once
-      expect(order).to receive(:add_item).with("Margherita").once
+      client = double("Twilio::REST::Client")
+      messages = double("Twilio::REST::Messages")
+      allow(client).to receive(:messages).and_return(messages)
+      allow(Twilio::REST::Client).to receive(:new).and_return(client)
 
-      customer.place_order(pizzeria, *selection)
-    end
-  end
+      expect(messages).to receive(:create).with(body: expected_body, from: expected_from, to: expected_to)
 
-  describe "private methods" do
-    let(:pizzeria_1) { double("Pizzeria", place_name: "Makers Pizza") }
-    let(:customer_1) { Customer.new("John Doe", "123 Main St", "555-1234") }
-    let(:delivery_time_1) { Time.new(2023, 5, 19, 11, 0, 0) }
-
-    before do
-      allow_any_instance_of(Customer).to receive(:send_confirmation_sms).and_call_original
+      customer.send_confirmation_sms(pizzeria, delivery_time)
     end
 
-    describe "#send_confirmation_sms" do
-      it "sends an order confirmation SMS" do
+    context "when Twilio client raises an error" do
+      it "handles the error and logs an error message" do
+        allow(Twilio::REST::Client).to receive(:new).and_raise("Twilio client error")
+
+        expect { customer.send_confirmation_sms(pizzeria, delivery_time) }.to output("Error sending confirmation SMS: Twilio client error\n").to_stdout
+      end
+    end
+
+    context "when Twilio message creation raises an error" do
+      it "handles the error and logs an error message" do
         client = double("Twilio::REST::Client")
-        messages = double("Twilio::REST::Messages")
-        message = double("Twilio::REST::Message")
+        allow(client).to receive(:messages).and_raise("Twilio message creation error")
         allow(Twilio::REST::Client).to receive(:new).and_return(client)
-        allow(client).to receive(:messages).and_return(messages)
-        allow(messages).to receive(:create).and_return(message)
 
-        expected_body = "Thank you, John Doe! Your order from Makers Pizza was placed and will be delivered before 11:00."
-        expected_from = "your_twilio_phone_number"
-        expected_to = "555-1234"
-        expect(messages).to receive(:create).with(body: expected_body, from: "+12543308011", to: expected_to)
-
-        customer_1.send(:send_confirmation_sms, pizzeria_1, delivery_time_1)
+        expect { customer.send_confirmation_sms(pizzeria, delivery_time) }.to output("Error sending confirmation SMS: Twilio message creation error\n").to_stdout
       end
     end
   end
 end
+

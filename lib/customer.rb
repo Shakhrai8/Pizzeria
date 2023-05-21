@@ -29,8 +29,6 @@ class Customer
     pizzeria.order.print_receipt(pizzeria.menu)
   end
 
-  private
-
   def send_order_confirmation(pizzeria)
     delivery_time = Time.now + (60 * 60) # One hour from now
 
