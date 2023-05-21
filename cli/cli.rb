@@ -6,16 +6,19 @@ require_relative '../lib/pizzeria'
 def main_menu
   @customer ||= Customer.new("", "", "")
   @pizzeria ||= Pizzeria.new
-
+  puts "----------------------------------"
   puts "Welcome to Makers Pizza!"
+  puts "----------------------------------"
   puts "1. Display Menu"
   puts "2. Add Pizza to Basket"
   puts "3. View Receipt"
   puts "4. Place Order"
   puts "5. Exit"
+  puts "----------------------------------"
 
   print "Enter your choice: "
   choice = gets.chomp.to_i
+  puts "----------------------------------"
 
   case choice
   when 1
