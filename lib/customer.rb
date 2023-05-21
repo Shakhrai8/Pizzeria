@@ -1,12 +1,17 @@
 require 'twilio-ruby'
 
 class Customer
-  attr_reader :name, :address, :phone_number
+  attr_reader :name, :address, :phone_number, :order
 
   def initialize(name, address, phone_number)
     @name = name
     @address = address
     @phone_number = phone_number
+    @order = order
+  end
+
+  def save_order(order)
+    @order = order
   end
 
   def view_menu(pizzeria)
@@ -50,6 +55,12 @@ class Customer
     rescue => e
       puts "Error sending confirmation SMS: #{e.message}"
     end
+  end
+
+  def update_customer_details(name, address, phone_number)
+    @name = name
+    @address = address
+    @phone_number = phone_number
   end
 end
 

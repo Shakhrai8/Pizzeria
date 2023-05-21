@@ -1,4 +1,5 @@
 class Menu
+  attr_reader :dishes
   def initialize
     @dishes = {
       "Hunor's special" => 12.99,
@@ -9,11 +10,12 @@ class Menu
   end
 
   def display_menu
-    puts "Menu: "
-    @dishes.each do |dish, price|
-      puts "#{dish}: £#{price}"
+    puts "Menu:"
+    @dishes.each_with_index do |(dish, price), index|
+      puts "#{index + 1}. #{dish}: £#{price}"
     end
   end
+  
 
   def price_of(dish)
     @dishes[dish]
@@ -21,6 +23,6 @@ class Menu
 
   def available?(dish)
     #.key? method is used to check if a given key exists in a hash
-    @dishes.key?(dish)
+    @dishes.key?(dish.capitalize) 
   end
 end

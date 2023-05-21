@@ -10,7 +10,8 @@ RSpec.describe "Pizzeria Integration" do
   context "#display_menu method" do
     it "returns menu" do
       #catch the line of code and direct it to terminal
-      expect { pizzeria.display_menu }.to output("Menu: \nHunor's special: £12.99\nMargherita: £9.99\nVegeterian: £9.99\nHawaiian: £10.99\n").to_stdout
+      expected_output = "Menu:\n1. Hunor's special: £12.99\n2. Margherita: £9.99\n3. Vegeterian: £9.99\n4. Hawaiian: £10.99\n"
+      expect { pizzeria.display_menu }.to output(expected_output).to_stdout
     end
   end
 
