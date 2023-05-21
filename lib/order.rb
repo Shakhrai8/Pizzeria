@@ -1,4 +1,5 @@
 class Order
+  attr_reader :items
   def initialize
     @items = {}
   end
@@ -20,5 +21,9 @@ class Order
       total += price
     end
     puts "Total: £#{total}"
+  end
+  
+  def any?
+    !@items.empty?
   end
 end
