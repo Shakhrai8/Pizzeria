@@ -45,3 +45,6 @@ The tests will be executed, and you will see the results in your terminal.
 
 ## Contributing
 Contributions are welcome! If you find any issues or would like to suggest improvements, please open an issue or submit a pull request.
+
+## License
+This project is licensed under the MIT License.
