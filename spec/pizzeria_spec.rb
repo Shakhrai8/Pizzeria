@@ -53,14 +53,14 @@ RSpec.describe Pizzeria do
   end
 
   describe "#print_receipt" do
-  it "prints the receipt for the order" do
-    allow(Order).to receive(:new).and_return(order_double)
-    allow(Menu).to receive(:new).and_return(menu_double)
-    allow(pizzeria).to receive(:menu).and_return(menu_double)
-    allow(pizzeria).to receive(:order).and_return(order_double)
+    it "prints the receipt for the order" do
+      allow(Order).to receive(:new).and_return(order_double)
+      allow(Menu).to receive(:new).and_return(menu_double)
+      allow(pizzeria).to receive(:menu).and_return(menu_double)
+      allow(pizzeria).to receive(:order).and_return(order_double)
 
-    expect(order_double).to receive(:print_receipt).with(menu_double)
-    pizzeria.print_receipt
+      expect(order_double).to receive(:print_receipt).with(menu_double)
+      pizzeria.print_receipt
+    end
   end
-end
 end
