@@ -11,6 +11,19 @@ To run the pizza ordering system, make sure you have Ruby installed on your syst
 
 `git clone https://github.com/Shakhrai8/Pizzeria.git`
 
+## Setup
+Before running the pizza ordering system, you need to set up the required Twilio configuration. Follow these steps:
+
+  1. Sign up for a Twilio account at https://www.twilio.com/signup.
+  2. Once you have an account, access the Twilio Console and obtain your Account SID and Auth Token.
+  3. In your terminal or command prompt, set the environment variables for your Twilio Account SID and Auth Token:
+  
+  `export TWILIO_ACCOUNT_SID=your_account_sid`
+  `export TWILIO_AUTH_TOKEN=your_auth_token`
+  
+  Replace your_account_sid and your_auth_token with your actual Twilio credentials.
+  4. Save the environment variables in your local shell configuration file (e.g., .bashrc, .zshrc) for persistent configuration.
+
 ## Usage
 Navigate to the project directory:
 
