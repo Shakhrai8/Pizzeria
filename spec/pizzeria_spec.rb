@@ -3,10 +3,26 @@ require 'twilio-ruby'
 
 RSpec.describe Pizzeria do
   let(:menu_double) { instance_double(Menu) }
+
   let(:order_double) { instance_double(Order) }
-  let(:customer) { instance_double(Customer) }
   let(:customer_double) { instance_double(Customer) }
+
+  let(:customer) { instance_double(Customer) }
+  let(:order) { instance_double(Order, items: ['Margherita', 'Hawaiian']) }
+
   let(:pizzeria) { Pizzeria.new }
+
+  it "sends order confirmation to the customer" do
+    allow(Order).to receive(:new).and_return(order)
+    allow(order).to receive(:add_item)
+    allow(customer).to receive(:send_order_confirmation)
+  
+    selection = ['Margherita', 'Hawaiian']
+
+    expect(customer).to receive(:send_order_confirmation).with(pizzeria)
+
+    pizzeria.process_order(customer, *selection)
+  end
 
   describe "#display_menu" do
     it "calls the display_menu method of the menu" do
@@ -35,4 +51,16 @@ RSpec.describe Pizzeria do
       end
     end
   end
+
+  describe "#print_receipt" do
+  it "prints the receipt for the order" do
+    allow(Order).to receive(:new).and_return(order_double)
+    allow(Menu).to receive(:new).and_return(menu_double)
+    allow(pizzeria).to receive(:menu).and_return(menu_double)
+    allow(pizzeria).to receive(:order).and_return(order_double)
+
+    expect(order_double).to receive(:print_receipt).with(menu_double)
+    pizzeria.print_receipt
+  end
+end
 end
