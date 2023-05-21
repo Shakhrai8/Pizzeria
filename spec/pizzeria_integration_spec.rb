@@ -5,6 +5,7 @@ require 'customer'
 
 RSpec.describe "Pizzeria Integration" do
   let(:pizzeria) { Pizzeria.new }
+  let(:customer) { Customer.new("John Doe", "123 Main St", "555-1234") }
 
   context "#display_menu method" do
     it "returns menu" do
@@ -13,10 +14,11 @@ RSpec.describe "Pizzeria Integration" do
     end
   end
 
-  describe "#print_receipt method" do
-    it "prints the order receipt" do
-      #pizzeria.place_order("Margherita", "Hawaiian")
-      #expect { pizzeria.print_receipt }.to output("Receipt:\nMargherita x 1: £9.99\nHawaiian x 1: £10.99\nTotal: £20.98\n").to_stdout
+  describe "#process_order" do
+    it "adds selected dishes to the order and sends order confirmation" do
+      expect(customer).to receive(:send_order_confirmation).with(pizzeria)
+
+      pizzeria.process_order(customer, "Margherita", "Hawaiian")
     end
   end
 end

@@ -24,7 +24,7 @@ class Pizzeria
         puts "Sorry, #{dish} is not available."
       end
     end
-    send_order_confirmation(customer)
+    customer.send_order_confirmation(self)
   end
 
   def print_receipt
