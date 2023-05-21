@@ -39,15 +39,19 @@ class Customer
   end
 
   def send_confirmation_sms(pizzeria, delivery_time)
-    client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
-
-    message = client.messages.create(
-      body: "Thank you, #{name}! Your order from #{pizzeria.place_name} was placed and will be delivered before #{delivery_time.strftime("%H:%M")}.",
-      from: ENV['TWILIO_PHONE_NUMBER'],
-      to: phone_number
-    )
-
-    puts "SMS confirmation sent to #{phone_number}."
+    begin
+      client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+  
+      message = client.messages.create(
+        body: "Thank you, #{name}! Your order from #{pizzeria.place_name} was placed and will be delivered before #{delivery_time.strftime("%H:%M")}.",
+        from: ENV['TWILIO_PHONE_NUMBER'],
+        to: phone_number
+      )
+  
+      puts "SMS confirmation sent to #{phone_number}."
+    rescue => e
+      puts "Error sending confirmation SMS: #{e.message}"
+    end
   end
 end
 
