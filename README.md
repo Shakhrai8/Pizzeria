@@ -8,13 +8,18 @@ This is a simple pizza ordering system implemented in Ruby. The system allows us
 
 ## Installation
 To run the pizza ordering system, make sure you have Ruby installed on your system. Clone this repository to your local machine:
+
 `git clone https://github.com/Shakhrai8/Pizzeria.git`
 
 ## Usage
 Navigate to the project directory:
+
 `cd Pizzeria`
+
 Run the CLI application:
+
 `ruby cli/cli.rb`
+
 You will be presented with a menu of options:
 
   1. Display Menu: Shows the available pizzas and their prices.
@@ -26,10 +31,16 @@ You will be presented with a menu of options:
 Follow the prompts to interact with the system and place your pizza order.
 
 ## Testing
-The project includes RSpec tests to ensure the correctness of the implemented classes and their methods. To run the tests, make sure you have RSpec installed. If not, you can install it by running:
+The project includes RSpec tests to ensure the correctness of the implemented classes and their methods. 
+To run the tests, make sure you have RSpec installed. 
+If not, you can install it by running:
+
 `gem install rspec`
+
 To run the tests, execute the following command in the project directory:
+
 `rspec`
+
 The tests will be executed, and you will see the results in your terminal.
 
 ## Contributing
